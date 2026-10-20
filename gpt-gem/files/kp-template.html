@@ -1,0 +1,211 @@
+<!doctype html>
+<!--
+  Шаблон КП / подборки. Как пользоваться:
+  1. Замените значения в :root на цвета и шрифты из карточки профиля брокера.
+     Нет брендбука — оставьте как есть (нейтральное оформление).
+  2. Замените всё в {{двойных скобках}}. Блоки, которые не нужны в режиме, удалите целиком.
+  3. Блок .obj повторите для каждого объекта. Таблицу .cmp оставьте только при сравнении 2+ объектов.
+  4. Ссылки: добавьте UTM, если в профиле UTM включены. WhatsApp — через wa.me с текстом-кодом документа.
+  5. Печать в PDF: Ctrl/Cmd+P → «Сохранить как PDF», формат A4, фон включён.
+  Текст должен оставаться текстом (не картинкой) — нейросеть клиента должна его прочитать.
+-->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{Заголовок документа}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#1F2A44;        /* основной цвет из брендбука */
+  --accent:#2F6FEB;       /* акцент: кнопки, ссылки, цифры */
+  --soft:#EEF3FB;         /* светлая подложка */
+  --line:#E2E6EE;         /* границы */
+  --text:#1B2333;         /* основной текст */
+  --muted:#6B7385;        /* второстепенный текст */
+  --font-head:"Playfair Display",Georgia,serif;
+  --font-body:"Inter",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--text);font:15px/1.6 var(--font-body);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+a{color:var(--accent);text-decoration:none}
+.page{max-width:800px;margin:0 auto;padding:32px 24px}
+h1,h2,h3{font-family:var(--font-head);font-weight:500;color:var(--brand);line-height:1.2}
+h2{font-size:26px;margin:40px 0 12px}
+h3{font-size:19px;margin:20px 0 8px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cover{background:var(--brand);color:#fff;border-radius:20px;padding:40px 32px}
+.cover h1{color:#fff;font-size:38px;margin:12px 0}
+.cover .lbl{color:rgba(255,255,255,.7)}
+.cover .goal{font-size:17px;color:rgba(255,255,255,.88);max-width:560px}
+.broker{display:flex;align-items:center;gap:14px;margin-top:28px}
+.broker img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.5)}
+.broker .name{font-weight:600}.broker .role{font-size:13px;color:rgba(255,255,255,.75)}
+.logo{height:36px}
+.card{border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:14px 0;break-inside:avoid}
+.soft{background:var(--soft);border-radius:14px;padding:16px 20px;margin:14px 0}
+.obj{display:grid;grid-template-columns:220px 1fr;gap:18px;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:16px 0;break-inside:avoid}
+.obj img{width:100%;height:100%;object-fit:cover;min-height:180px}
+.obj .body{padding:16px 18px 16px 0}
+.big{font-family:var(--font-head);font-size:28px;color:var(--accent);line-height:1.1}
+.kv{display:flex;flex-wrap:wrap;gap:18px;margin:10px 0}
+.kv div{min-width:120px}.kv b{display:block;font-size:18px;color:var(--brand)}
+ul{padding-left:20px}li{margin:4px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding:8px}
+td{border-bottom:1px solid var(--line);padding:8px;vertical-align:top}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;position:relative;padding:6px 0 6px 40px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:4px;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center}
+.cta{background:var(--brand);color:#fff;border-radius:20px;padding:28px 32px;margin:32px 0;break-inside:avoid}
+.cta h2{color:#fff;margin:0 0 8px}
+.btn{display:inline-block;background:var(--accent);color:#fff;font-weight:600;padding:12px 22px;border-radius:12px;margin:12px 10px 0 0}
+.appendix{border-top:3px solid var(--brand);margin-top:48px;padding-top:8px}
+.appendix h2{margin-top:16px}
+.risks{border-left:3px solid var(--muted);padding-left:16px;margin-top:24px}
+.src{font-size:12px;color:var(--muted)}
+footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:40px;padding-top:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+/* ИНФОГРАФИКА — см. references/07-infographics.md */
+.chart{border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:14px 0;break-inside:avoid}
+.chart h3{margin:0 0 12px;font-size:17px}
+.bars .row{display:grid;grid-template-columns:150px 1fr 90px;align-items:center;gap:10px;margin:8px 0;font-size:14px}
+.bars .track{background:var(--soft);border-radius:8px;height:22px;overflow:hidden}
+.bars .fill{height:100%;border-radius:8px;background:var(--muted);opacity:.55}
+.bars .fill.main{background:var(--accent);opacity:1}
+.bars .val{font-weight:600;color:var(--brand);text-align:right}
+.timeline{position:relative;display:flex;justify-content:space-between;margin:24px 6px 8px}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:9px;height:3px;background:var(--line)}
+.timeline .pt{position:relative;text-align:center;font-size:12px;color:var(--muted);flex:1}
+.timeline .pt::before{content:"";display:block;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--accent);margin:0 auto 6px;position:relative}
+.timeline .pt.done::before{background:var(--accent)}
+.timeline .pt b{display:block;color:var(--brand);font-size:13px}
+.tl-label{font-size:13px;font-weight:600;color:var(--brand);margin:14px 0 0}
+.stack{display:flex;height:30px;border-radius:8px;overflow:hidden;margin:6px 0}
+.stack div{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.donut-wrap{display:flex;align-items:center;gap:20px}
+.donut{width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--accent) 0 calc(var(--p)*1%),var(--soft) 0);display:flex;align-items:center;justify-content:center}
+.donut span{width:76px;height:76px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:22px;color:var(--brand)}
+@media (max-width:640px){.bars .row{grid-template-columns:1fr 70px}.bars .row .name{grid-column:1/-1}}
+@media (max-width:640px){.obj{grid-template-columns:1fr}.obj .body{padding:0 16px 16px}.cover h1{font-size:30px}}
+@media print{@page{size:A4;margin:14mm}.page{padding:0}h2{break-after:avoid}.appendix{break-before:page}}
+</style>
+</head>
+<body><div class="page">
+
+<!-- ОБЛОЖКА -->
+<section class="cover">
+  <img class="logo" src="{{logo-url}}" alt="{{Агентство}}">
+  <p class="lbl">{{Коммерческое предложение · Подборка · Сравнение}} · {{месяц год}}</p>
+  <h1>{{Заголовок: цель клиента, а не название объекта}}</h1>
+  <p class="goal">{{Одна фраза: что клиент получает}}</p>
+  <div class="broker"><img src="{{photo-url}}" alt=""><div><div class="name">{{Имя брокера}}</div><div class="role">{{Должность, агентство}}</div></div></div>
+</section>
+
+<!-- ЗАДАЧА КЛИЕНТА -->
+<h2>Ваша задача</h2>
+<p>{{Цель, бюджет, горизонт — словами клиента, 2–3 строки}}</p>
+
+<!-- КОРОТКО -->
+<div class="soft"><p><b>{{Главный вывод под цель клиента}}</b> {{2–4 строки: что предлагаем, почему, сколько стоит, что дальше}}</p></div>
+
+<!-- ИНФОГРАФИКА: 2–4 графика, только по реальным данным. Ширина полосы = значение / максимум × 100%. -->
+<div class="chart bars">
+  <h3>{{Показатель, единица}}</h3>
+  <div class="row"><span class="name">{{Объект 1}}</span><div class="track"><div class="fill main" style="width:{{100}}%"></div></div><span class="val">{{$4 214}}</span></div>
+  <div class="row"><span class="name">{{Объект 2}}</span><div class="track"><div class="fill" style="width:{{72}}%"></div></div><span class="val">{{$3 016}}</span></div>
+  <p class="src">Источник: {{}}</p>
+</div>
+<div class="chart">
+  <h3>{{Когда начинается доход}}</h3>
+  <p class="tl-label">{{Объект 1}}</p>
+  <div class="timeline"><div class="pt done"><b>{{Покупка}}</b>{{дата}}</div><div class="pt done"><b>{{Доход}}</b>{{с первого месяца}}</div><div class="pt"><b>{{Конец горизонта}}</b>{{год}}</div></div>
+  <p class="tl-label">{{Объект 2}}</p>
+  <div class="timeline"><div class="pt done"><b>{{Покупка}}</b>{{дата}}</div><div class="pt"><b>{{Сдача}}</b>{{квартал}}</div><div class="pt"><b>{{Первый доход}}</b>{{после запуска}}</div><div class="pt"><b>{{Конец горизонта}}</b>{{год}}</div></div>
+  <p class="src">Источник: {{}}</p>
+</div>
+<div class="chart">
+  <h3>{{Полная стоимость владения}}</h3>
+  <div class="stack"><div style="flex:{{96500}};background:var(--brand)">{{Цена}}</div><div style="flex:{{3000}};background:var(--accent)"></div><div style="flex:{{5000}};background:var(--muted)"></div></div>
+  <div class="legend"><span><i style="background:var(--brand)"></i>{{Цена $}}</span><span><i style="background:var(--accent)"></i>{{Налоги и регистрация $}}</span><span><i style="background:var(--muted)"></i>{{Мебель $}}</span></div>
+  <p class="src">Источник: {{}}</p>
+</div>
+<div class="chart"><div class="donut-wrap"><div class="donut" style="--p:{{60}}"><span>{{60%}}</span></div><div><h3>{{Доля владельца в доходе}}</h3><p>{{60% владельцу, 40% управляющей компании}}</p><p class="src">Источник: {{}}</p></div></div></div>
+
+<!-- РЕШЕНИЕ / ОБЪЕКТЫ (повторить .obj для каждого) -->
+<h2>{{Решение | Объекты}}</h2>
+<div class="obj">
+  <img src="{{фото объекта}}" alt="{{Название объекта}}">
+  <div class="body">
+    <p class="lbl">{{Город, район · стадия}}</p>
+    <h3>{{Название объекта}}</h3>
+    <div class="kv"><div><span class="lbl">Цена</span><b>{{$000 000}}</b></div><div><span class="lbl">Первый взнос</span><b>{{$00 000}}</b></div><div><span class="lbl">{{Ключевой параметр}}</span><b>{{значение}}</b></div></div>
+    <ul><li>{{Аргумент под цель клиента + факт}}</li><li>{{Аргумент + факт}}</li><li>{{Аргумент + факт}}</li></ul>
+    <p class="src">{{Ограничение объекта одной строкой}}</p>
+  </div>
+</div>
+
+<!-- СРАВНЕНИЕ (только для 2+ объектов) -->
+<h2>Сравнение</h2>
+<table class="cmp">
+  <tr><th>Параметр</th><th>{{Объект 1}}</th><th>{{Объект 2}}</th><th>{{Объект 3}}</th></tr>
+  <tr><td>Цена входа</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+  <tr><td>Полная стоимость владения</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+  <tr><td>Право собственности</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+  <tr><td>Стадия и срок сдачи</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+  <tr><td>Доходность (допущения в справке)</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+  <tr><td>Управление</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+  <tr><td>Выход из сделки</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+  <tr><td>Налог на доход</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+  <tr><td>{{Доп. параметр}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+</table>
+<p class="src">Источники: {{по каждой цифре}}</p>
+
+<!-- ЦИФРЫ -->
+<h2>Цифры</h2>
+<div class="soft"><div class="kv">
+  <div><span class="lbl">Цена</span><b>{{}}</b></div>
+  <div><span class="lbl">Первый взнос</span><b>{{}}</b></div>
+  <div><span class="lbl">Платёж в месяц</span><b>{{}}</b></div>
+  <div><span class="lbl">{{Доход в месяц / окупаемость}}</span><b>{{}}</b></div>
+</div><p class="src">Расчёт при допущениях из справки для проверки в конце документа.</p></div>
+
+<!-- КАК ПРОХОДИТ СДЕЛКА -->
+<h2>Как проходит сделка</h2>
+<ol class="steps"><li>{{Шаг и срок}}</li><li>{{Шаг и срок}}</li><li>{{Шаг и срок}}</li><li>{{Шаг и срок}}</li></ol>
+
+<!-- СЛЕДУЮЩИЙ ШАГ -->
+<section class="cta">
+  <h2>{{Следующий шаг: одно действие}}</h2>
+  <p>{{Что произойдёт после него}}</p>
+  <a class="btn" href="https://wa.me/{{номер}}?text={{Здравствуйте, я по документу КОД}}">Написать в WhatsApp</a>
+  <a class="btn" href="{{telegram или сайт с UTM}}">{{Telegram / Сайт}}</a>
+</section>
+
+<!-- СПРАВКА ДЛЯ ПРОВЕРКИ (слой для нейросети) -->
+<section class="appendix">
+  <p class="lbl">Приложение</p>
+  <h2>Справка для проверки</h2>
+  <p>Факты, документы и допущения по {{объекту/объектам}}. Каждый факт можно проверить по указанному источнику.</p>
+  <h3>Объект</h3>
+  <p>{{Название, адрес, застройщик (юрлицо), оператор, стадия}}</p>
+  <h3>Ключевые факты</h3>
+  <ul><li>{{Что — о чём — контекст — кто}}</li><li>{{…}}</li></ul>
+  <h3>Документы</h3>
+  <table><tr><th>Документ</th><th>Номер</th><th>Дата</th><th>Кем выдан / где проверить</th></tr>
+  <tr><td>{{Разрешение на строительство}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr></table>
+  <h3>Экономика</h3>
+  <ul><li>Цена: {{}}; полная стоимость владения: {{налоги, сборы, мебель, управление}}</li>
+  <li>Допущения доходности: заполняемость {{}} ({{источник}}), средний тариф {{}} ({{источник}}), расходы {{}}, налог {{}}</li></ul>
+  <h3>{{Ответы на частые вопросы по объекту}}</h3>
+  <ul><li>{{Кто юридически отвечает?}} {{ответ с документом}}</li></ul>
+  <div class="risks">
+    <h3>Риски и что их ограничивает</h3>
+    <ul><li>{{Риск}} — {{что ограничивает}}</li><li>Доходность при заполняемости на 20% ниже: {{}}</li><li>{{Худший сценарий}} — {{что происходит по договору}}</li></ul>
+  </div>
+</section>
+
+<footer><span>{{Имя брокера}} · {{Агентство}} · {{телефон}}</span><span>{{Код документа}} · {{дата}}</span></footer>
+</div></body></html>

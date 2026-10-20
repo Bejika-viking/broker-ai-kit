@@ -1,0 +1,7 @@
+{
+  "name": "broker-ai-kit",
+  "version": "2026.10.20",
+  "description": "Конструктор КП и подборок зарубежной недвижимости в двух слоях — для клиента и для нейросети, которой клиент покажет документ. Плюс Humanizer RU.",
+  "author": { "name": "Иван Недяк", "url": "https://t.me/ui_jedi" },
+  "homepage": "https://www.instagram.com/lazy.rockstar/"
+}

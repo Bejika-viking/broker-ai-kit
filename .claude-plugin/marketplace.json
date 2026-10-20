@@ -1,0 +1,12 @@
+{
+  "name": "broker-ai-kit",
+  "description": "Инструменты для брокеров зарубежной недвижимости: конструктор КП в двух слоях (для клиента и для нейросети) и Humanizer для русского текста",
+  "owner": { "name": "Иван Недяк", "url": "https://t.me/ui_jedi" },
+  "plugins": [
+    {
+      "name": "broker-ai-kit",
+      "source": "./plugins/broker-ai-kit",
+      "description": "Конструктор КП и подборок недвижимости + Humanizer RU"
+    }
+  ]
+}
