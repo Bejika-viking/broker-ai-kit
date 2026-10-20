@@ -23,7 +23,7 @@ ChatGPT и Gemini выполняют длинные правила хуже: с�
 
 ### Claude — Pro, Max, Team, Enterprise
 1. Customize → Plugins → Add → Add marketplace → Add from a repository
-2. Вставьте: `{{owner}}/broker-ai-kit`
+2. Вставьте: `Bejika-viking/broker-ai-kit`
 3. Установите плагин **broker-ai-kit**
 
 В настройках должно быть включено «Code execution and file creation».
@@ -37,7 +37,7 @@ ChatGPT и Gemini выполняют длинные правила хуже: с�
 
 ### Claude Code
 ```
-/plugin marketplace add {{owner}}/broker-ai-kit
+/plugin marketplace add Bejika-viking/broker-ai-kit
 /plugin install broker-ai-kit@broker-ai-kit
 ```
 Автообновление: `/plugin` → Marketplaces → broker-ai-kit → Enable auto-update.
