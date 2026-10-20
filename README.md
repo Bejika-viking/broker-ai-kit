@@ -42,11 +42,17 @@ ChatGPT и Gemini выполняют длинные правила хуже: с�
 ```
 Автообновление: `/plugin` → Marketplaces → broker-ai-kit → Enable auto-update.
 
-### ChatGPT
-GPT «Конструктор КП»: [ссылка]
+### ChatGPT — через проект
+Публично делиться своими GPT в ChatGPT больше нельзя, а сами GPT OpenAI выводит из работы 11 декабря 2026. Поэтому в ChatGPT конструктор ставится как проект:
+1. Слева «Projects» → «New project», назовите «Конструктор КП»
+2. Откройте настройки проекта → Instructions → вставьте текст из [chatgpt-project/instructions.md](chatgpt-project/instructions.md)
+3. Загрузите в файлы проекта три файла из папки [chatgpt-project](chatgpt-project): `kp-rules.md`, `humanizer-ru.md`, `kp-template.html`. Укладывается в лимит бесплатного тарифа — до 5 файлов на проект
+4. Все чаты по КП ведите внутри этого проекта
 
 ### Gemini
-Gem «Конструктор КП»: [ссылка]
+Gem «Конструктор КП»: https://gemini.google.com/gem/12ec06b778f2
+
+Выбирайте модель Pro. Если Gemini ответил «Такие вопросы и задачи не для меня», нажмите «Повторить» — это срабатывает его встроенный фильтр.
 
 ### Другие чаты
 Вставьте текст из [prompt-universal.md](prompt-universal.md) первым сообщением. Если чат принимает файлы, приложите файлы из [gpt-gem/files](gpt-gem/files).
